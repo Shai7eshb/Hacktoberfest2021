@@ -1,0 +1,55 @@
+/*
+C++ Program to Perform Inorder Recursive Traversal of a Given Binary Tree
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct node
+{
+    int data;
+    node *right=NULL,*left=NULL;
+};
+
+node *crenod(int data)
+{
+    struct node *tmp = (struct node*)malloc(sizeof(node));
+    tmp->data = data;
+    tmp->left = tmp->right = NULL;
+    return tmp;
+}
+
+node *insertnode(node *root, int data)
+{
+    if(root==NULL)
+        return crenod(data);
+
+    if(data < root->data)
+        root->left = insertnode(root->left, data);
+    else if(data > root->data)
+        root->right = insertnode(root->right, data);
+
+    return root;
+}
+void inord(struct node *root)
+{
+    if(root!=NULL)
+    {
+        inord(root->left);
+        cout<<root->data<<" ";
+        inord(root->right);
+    }
+}
+
+int main()
+{
+    struct node *root = NULL;
+    root = insertnode(root,4);
+    insertnode(root,2);
+    insertnode(root,3);
+    insertnode(root,1);
+    insertnode(root,5);
+
+    cout<<"Inorder Traversal: ";
+    inord(root);
+}
